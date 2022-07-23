@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block title %}Edit Log{% endblock %}
+{% block body %}
+<div class="container">
+  <form method="POST">
+    <div class="form-group">
+      <img src="{{url_for("static",filename="images/add-log.gif")}}">
+    </div>
+    <div class="form-group">
+        <input type="datetime-local" id="timestamp" name="timestamp" value="{{ log.timestamp }}">
+    </div>
+    {% if tracker.settings == "sleep" %}
+    <div class="form-group">
+      <input type="number" class="form-control" placeholder="Value" id="value" name="value" min="0" max="12" required value="{{ log.value }}">
+    </div>
+    {% elif tracker.settings == "mood" %}
+    <div class="form-group">
+        <select class="form-control" id="value" name="value" required value="{{ log.value }}">
+          <option value="" disabled selected hidden>{{ tracker.description }}</option>
+          <option value="Happiness">Happiness</option>
+          <option value="Sadness">Sadness</option>
+          <option value="Fear">Fear</option>
+          <option value="Disgust">Disgust</option>
+          <option value="Anger">Anger</option>
+          <option value="Suprise">Suprise</option>
+        </select>
+    </div>
+    {% elif tracker.settings == "temperature" %}
+    <div class="form-group">
+        <input type="number" class="form-control" placeholder="Value" id="value" name="value" min="97" max="105" step="0.1" required value="{{ log.value }}">
+    </div>
+    {% elif tracker.settings == "run" %}
+    <div class="form-group">
+        <input type="number" class="form-control" placeholder="Value" id="value" name="value" min="0" max="10" required value="{{ log.value }}">
+    </div>
+    {% endif %}
+    <div class="form-group">
+      <input type="text" class="form-control" placeholder="Notes" id="notes"  name="notes" value="{{ log.notes }}">
+    </div>
+    <button type="submit" class="btn btn-primary">Edit Log</button>
+  </form>
+</div>
+{% endblock %}

@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block title %}View Trackers{% endblock %}
+{% block body %}
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-6 text-center mb-5">
+      <h2 class="heading-section">Trackers📈</h2>
+    </div>
+  </div>
+
+  <form method="POST">
+    <div class="form-group">
+      <table class="table table-borderless table-hover">
+        <tbody>
+          {% for tracker in trackers %}
+          <tr>
+            <td><a href="{{ url_for('view_logs_page',record_id = tracker.id) }}">{{ tracker.name }}</a></td>
+            <td>{{ tracker.description }}</td>
+            <td><a href="{{url_for("add_log_page",record_id=tracker.id)}}" class="close" role="button">&#10133;</a></td>
+            <td><a href="{{url_for("edit_tracker_page",record_id=tracker.id)}}" class="close" role="button">&#9998;</a></td>
+            <td><a href="{{url_for("delete_tracker_page",record_id=tracker.id)}}" class="close" role="button">&times;</a></td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    <a href="{{url_for("add_tracker_page")}}" class="btn btn-dark" role="button">Add a new tracker</a>
+  </form>
+</div>
+{% endblock %}

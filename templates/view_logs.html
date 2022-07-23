@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% block title %}View Logs{% endblock %}
+{% block body %}
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-6 text-center mb-5">
+      {% if tracker.settings=="sleep" %}
+      <h2 class="heading-section">{{ tracker.name.capitalize() }} tracker 😴</h2>
+      {% elif tracker.settings=="temperature" %}
+      <h2 class="heading-section">{{ tracker.name.capitalize() }} 🌡</h2>
+      {% elif tracker.settings=="mood" %}
+      <h2 class="heading-section">{{ tracker.name.capitalize() }} tracker 🫥</h2>
+      {% elif tracker.settings=="run" %}
+      <h2 class="heading-section">{{ tracker.name.capitalize() }} tracker 🏃</h2>
+      {% elif tracker.settings=="weight" %}
+      <h2 class="heading-section">{{ tracker.name.capitalize() }} 🦍</h2>
+      {% else %}
+      <h2 class="heading-section">{{ tracker.name.capitalize() }} tracker📈</h2>
+      {% endif %}
+    </div>
+  </div>
+
+  <form>
+    <div class="form-group">
+      <img src="{{url_for("static",filename="images/graph.png")}}" alt="graph">
+    </div>
+    <div class="form-group">
+      <table class="table table-borderless">
+        <tbody>
+            {% for log in logs %}
+              {% if log.user_id==user.id and log.tracker_id==tracker.id %}
+          <tr>
+              <td>{{ log.timestamp[:10] }} at {{ log.timestamp[11:] }}</td>
+              {% if tracker.settings=="sleep" %}
+              <td>{{ log.value }} hrs</td> 
+              {% elif tracker.settings=="temperature" %}
+              <td>{{ log.value }}F</td>
+              {% elif tracker.settings=="mood" %}
+              <td>{{ log.value }}</td>
+              {% elif tracker.settings=="run" %}
+              <td>{{ log.value }}kms</td>
+              {% elif tracker.settings=="weight" %}
+              <td>{{ log.value }}kgs</td>
+              {% else %}
+              <td>{{ log.value }}</td>
+              {% endif %}
+              
+              <td>{{ log.notes }}</td>
+              <td><a href="{{url_for("edit_log_page",record_id=log.id)}}" class="close" role="button">&#9998;</a></td>
+              <td><a href="{{url_for("delete_log_page",record_id=log.id)}}" class="close" role="button">&times;</a></td>
+          </tr>
+              {% endif %}
+            {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    <a href="{{url_for("add_log_page",record_id=tracker.id)}}" class="btn btn-dark" role="button">Add a Log</a>
+  </form>
+</div>
+{% endblock %}

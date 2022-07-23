@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block title %}Profile{% endblock %}
+{% block body %}
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-6 text-center mb-5">
+
+
+      <img src="{{url_for("static",filename="images/profilepicture.png")}}" class="profile-picture">
+      <!-- <h2 class="heading-section">Profile</h2> -->
+    </div>
+  </div>
+
+  <form>
+
+    <div class="form-group">
+      <table class="table table-borderless">
+        <tbody>
+          <tr>
+            <th scope="row">Name</th>
+            <td>{{ user.name.capitalize() }}</td>
+          </tr>
+          <tr>
+            <th scope="row">Email</th>
+            <td>{{ user.email }}</td>
+          </tr>
+          <tr>
+            <th scope="row">Contact Number</th>
+            <td>{{ user.contactnum }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <a href="{{url_for("edit_profile_page")}}" class="btn btn-dark" role="button">Edit</a>
+  </form>
+</div>
+{% endblock %}

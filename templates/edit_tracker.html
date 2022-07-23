@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block title %}Edit Tracker{% endblock %}
+{% block body %}
+<div class="container">
+    <form method="POST">
+      <div class="form-group">
+        <img src="{{url_for("static",filename="images/add-log.gif")}}">
+      </div>
+      <div class="form-group">
+        <input type="text" class="form-control" placeholder="Tracker Name" id="name" name="name" value="{{ tracker.name }}" required>
+      </div>
+      <div class="form-group">
+        <input type="text" class="form-control" placeholder="Description about Tracker" id="description" name="description" value="{{ tracker.description }}" required>
+      </div>
+      <div class="form-group">
+      <select class="form-control" id="tracker_type" name="tracker_type" value="{{ tracker.tracker_type }}" required>
+        <option value="" disabled selected hidden>Choose Tracker Type</option>
+        <option value="Numerical">Numerical</option>
+        <option value="Multiple Choice">Multiple Choice</option>
+        <option value="Time Duration">Time Duration</option>
+        <option value="Boolean">Boolean</option>
+      </select>
+      </div>
+      <div class="form-group">
+        <input type="text" class="form-control" placeholder="Settings" id="settings" name="settings" value="{{ tracker.settings }}" >
+      </div>
+      <button type="submit" class="btn btn-primary">Edit Tracker</button>
+    </form>
+  </div>
+{% endblock %}
